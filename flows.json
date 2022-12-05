@@ -1,0 +1,325 @@
+[
+    {
+        "id": "c693c056b2d7b283",
+        "type": "tab",
+        "label": "Поток 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "146caad9ed676760",
+        "type": "telegram command",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "command": "/start",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "5c79546942b331b8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "aa6745504cf68296"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "aa6745504cf68296",
+        "type": "function",
+        "z": "c693c056b2d7b283",
+        "name": "build keyboard",
+        "func": "var opts = {\n  reply_markup: JSON.stringify({\n    \"inline_keyboard\": [[\n                {\n                    \"text\": \"Ваш номер телефона\",\n                    \"callback_data\": \"option1\"            \n                },\n                {\n                    \"text\": \"Номер телефона получателя:\",\n                    \"callback_data\": \"option2\"\n                }\n                ]\n            ]\n  })\n};\n\nmsg.payload.content = \"Привет! \\r\\n Давай выполним перевод средств: smile:\";\nmsg.payload.options = opts;\nmsg.payload.type = \"message\";\n\nreturn [ msg ];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 120,
+        "wires": [
+            [
+                "18638dee03ff7b2e"
+            ]
+        ]
+    },
+    {
+        "id": "18638dee03ff7b2e",
+        "type": "telegram sender",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "648a46aa05186572",
+        "type": "switch",
+        "z": "c693c056b2d7b283",
+        "name": "menu options",
+        "property": "payload.content",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "option1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "option2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 480,
+        "y": 220,
+        "wires": [
+            [
+                "a1bb2c1631047ddb"
+            ],
+            [
+                "56d2bdc9ea7d3947"
+            ]
+        ]
+    },
+    {
+        "id": "e3d1473eefad76bf",
+        "type": "telegram event",
+        "z": "c693c056b2d7b283",
+        "name": "callback menu principal",
+        "bot": "5c79546942b331b8",
+        "event": "callback_query",
+        "autoanswer": false,
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "648a46aa05186572",
+                "92cbdd0b5d205a1f"
+            ]
+        ]
+    },
+    {
+        "id": "56d2bdc9ea7d3947",
+        "type": "function",
+        "z": "c693c056b2d7b283",
+        "name": "function 2",
+        "func": "msg.payload.content = \"Укажите номер клиента:\";\nmsg.payload.type = \"message\";\n\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 240,
+        "wires": [
+            [
+                "9c8b132c58ab9236"
+            ]
+        ]
+    },
+    {
+        "id": "9c8b132c58ab9236",
+        "type": "telegram sender",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a1bb2c1631047ddb",
+        "type": "function",
+        "z": "c693c056b2d7b283",
+        "name": "function 3",
+        "func": "msg.payload.content = \"Укажите Ваш номер телефона:\";\nmsg.payload.type = \"message\";\n\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 180,
+        "wires": [
+            [
+                "10815d55563bdfa4"
+            ]
+        ]
+    },
+    {
+        "id": "10815d55563bdfa4",
+        "type": "telegram sender",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "452d02f0d42a5815",
+        "type": "telegram receiver",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "saveDataDir": "",
+        "filterCommands": true,
+        "x": 210,
+        "y": 440,
+        "wires": [
+            [
+                "eb6e2589f6c67a4c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "eb6e2589f6c67a4c",
+        "type": "function",
+        "z": "c693c056b2d7b283",
+        "name": "build keyboard",
+        "func": "var opts = {\n  reply_to_message_id: msg.payload.messageId,\n  reply_markup: JSON.stringify({\n    \"inline_keyboard\": [[\n      {\n        \"text\": \"Да\",\n        \"callback_data\": \"Да\"\n      },\n      {\n        \"text\": \"Нет\",\n        \"callback_data\": \"Нет\"\n      }]\n    ]\n  })\n};\n\nmsg.payload.content = 'Вы ввели корректный номер?';\nmsg.payload.options = opts;\n\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 440,
+        "wires": [
+            [
+                "82d454cb194b2736"
+            ]
+        ]
+    },
+    {
+        "id": "82d454cb194b2736",
+        "type": "telegram sender",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "92cbdd0b5d205a1f",
+        "type": "switch",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "property": "payload.content",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Да",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Нет",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 340,
+        "wires": [
+            [
+                "850ef496c90a9d0f"
+            ],
+            [
+                "aa6745504cf68296"
+            ]
+        ]
+    },
+    {
+        "id": "850ef496c90a9d0f",
+        "type": "function",
+        "z": "c693c056b2d7b283",
+        "name": "function 4",
+        "func": "msg.payload.content = 'Отлично!';\nmsg.payload.type = \"message\";\n\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 340,
+        "wires": [
+            [
+                "39962e23376f0dc7"
+            ]
+        ]
+    },
+    {
+        "id": "39962e23376f0dc7",
+        "type": "telegram sender",
+        "z": "c693c056b2d7b283",
+        "name": "",
+        "bot": "5c79546942b331b8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c79546942b331b8",
+        "type": "telegram bot",
+        "botname": "c2c_42flows_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
